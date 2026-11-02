@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b26">
+  <title>پمپ حساب — مبشر حسین</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap');
+    :root{--ink:#172b27;--muted:#75817d;--green:#16745d;--green-dark:#102b26;--mint:#e8f4ee;--bg:#f4f6f3;--line:#e7ebe7;--white:#fff;--red:#c64e4e;--amber:#b67a23;--shadow:0 12px 35px rgba(24,52,43,.07)}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Nastaliq Urdu","DM Sans",sans-serif;font-size:14px}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .app{min-height:100vh;display:grid;grid-template-columns:260px minmax(0,1fr)}
+    aside{background:var(--green-dark);color:#eaf3ef;padding:25px 18px;display:flex;flex-direction:column;gap:30px}
+    .brand{display:flex;align-items:center;gap:12px;padding:0 8px}
+    .brand-mark{width:44px;height:44px;border-radius:14px;background:#d4f0df;color:var(--green-dark);display:grid;place-items:center;font-size:22px;font-family:"DM Sans",sans-serif;font-weight:700}
+    .brand h1{font-size:18px;margin:0;font-weight:600}
+    .brand p{margin:2px 0 0;color:#a8c1b6;font-size:11px}
+    .nav-label{padding:0 12px;color:#8da99e;font-size:11px}
+    nav{display:grid;gap:6px}
+    .nav-btn{width:100%;border:0;background:transparent;color:#bfd0c9;text-align:right;padding:10px 12px;border-radius:10px;display:flex;align-items:center;gap:12px;transition:.18s}
+    .nav-btn:hover,.nav-btn.active{background:#21453a;color:#fff}
+    .nav-btn.active{box-shadow:inset -3px 0 #72d6a5}
+    .nav-icon{font-family:"DM Sans",sans-serif;font-size:17px;width:23px;text-align:center}
+    .aside-bottom{margin-top:auto;border-top:1px solid #315148;padding:18px 10px 2px;color:#a8c1b6;font-size:12px;line-height:1.9}
+    .aside-bottom strong{display:block;color:white;font-size:14px;font-weight:500}
+    main{min-width:0;padding:27px clamp(18px,4vw,54px) 48px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:27px}
+    .eyebrow{font-family:"DM Sans",sans-serif;color:var(--muted);font-size:12px;letter-spacing:.02em}
+    .topbar h2{margin:4px 0 0;font-size:23px;font-weight:600}
+    .top-actions{display:flex;gap:9px;align-items:center}
+    .date-pill{border:1px solid var(--line);background:white;border-radius:10px;padding:9px 13px;color:var(--muted);font-size:12px}
+    .primary,.secondary,.danger{border:0;border-radius:10px;padding:10px 16px;font-weight:500;transition:.18s}
+    .primary{background:var(--green);color:white}.primary:hover{background:#105d4a}
+    .secondary{background:white;border:1px solid var(--line);color:var(--ink)}.secondary:hover{border-color:#b7c8bf}
+    .danger{background:#fff0ef;color:var(--red);padding:6px 10px}
+    .greeting{background:linear-gradient(112deg,#123b30,#1b6a51);border-radius:18px;padding:22px 26px;color:white;display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:20px;overflow:hidden;position:relative}
+    .greeting:after{content:"";position:absolute;width:190px;height:190px;border:1px solid #ffffff1c;border-radius:50%;left:10%;top:-110px;box-shadow:0 0 0 25px #ffffff08,0 0 0 52px #ffffff06}
+    .greeting h3{margin:0 0 4px;font-size:19px;font-weight:500}.greeting p{margin:0;color:#c5ded3;font-size:12px}
+    .greeting .primary{background:#e5f5ec;color:#174535;z-index:1}
+    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
+    .card,.panel{background:white;border:1px solid #edf0ed;border-radius:15px;box-shadow:var(--shadow)}
+    .stat{padding:17px 18px;min-height:118px}
+    .stat-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:12px}
+    .stat-icon{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:var(--mint);color:var(--green);font-family:"DM Sans",sans-serif;font-size:15px}
+    .stat strong{display:block;font:700 23px "DM Sans","Noto Nastaliq Urdu",sans-serif;margin-top:12px;direction:ltr;text-align:right}
+    .stat small{color:var(--muted);font-size:11px}
+    .content-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(270px,.9fr);gap:17px}
+    .panel{padding:19px}
+    .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
+    .panel-head h3{font-size:15px;font-weight:600;margin:0}
+    .panel-head a,.text-btn{color:var(--green);border:0;background:none;font-size:12px;padding:4px}
+    .quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .quick{border:1px solid var(--line);background:white;border-radius:12px;padding:14px;text-align:right;display:flex;align-items:center;gap:11px;color:var(--ink);transition:.18s}
+    .quick:hover{border-color:#a6c8b7;background:#f8fcf9;transform:translateY(-1px)}
+    .quick b{font-size:12px;font-weight:500}.quick small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+    .quick .qicon{width:35px;height:35px;border-radius:11px;background:var(--mint);display:grid;place-items:center;color:var(--green);font-family:"DM Sans",sans-serif;font-size:16px}
+    .fuel-list{display:grid;gap:16px}
+    .fuel-row{display:grid;gap:6px}
+    .fuel-title{display:flex;justify-content:space-between;font-size:12px}
+    .fuel-title span:last-child{font-family:"DM Sans",sans-serif;color:var(--muted);direction:ltr}
+    .progress{height:7px;background:#edf1ee;border-radius:9px;overflow:hidden;direction:ltr}
+    .progress span{height:100%;display:block;background:#48a879;border-radius:9px}
+    .table-wrap{overflow:auto}
+    table{width:100%;border-collapse:collapse;white-space:nowrap}
+    th{font-size:11px;color:var(--muted);font-weight:500;text-align:right;padding:10px 9px;border-bottom:1px solid var(--line)}
+    td{padding:11px 9px;border-bottom:1px solid #f0f2f0;font-size:12px}
+    tr:last-child td{border-bottom:0}
+    .amount{font-family:"DM Sans","Noto Nastaliq Urdu",sans-serif;direction:ltr;text-align:right;font-weight:600}
+    .badge{display:inline-block;background:var(--mint);color:var(--green);border-radius:20px;padding:3px 9px;font-size:10px}
+    .badge.cash{background:#eef3ff;color:#4e67aa}.badge.credit{background:#fff3df;color:#9a681d}
+    .empty{text-align:center;color:var(--muted);padding:30px 12px;font-size:12px}
+    .page-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:3px 0 15px}
+    .page-tools h3{margin:0;font-size:16px;font-weight:600}
+    .filter{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 11px;color:var(--ink);max-width:180px}
+    .ledger-panel{padding:4px 17px 12px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+    .notice{background:#fff8e9;color:#856122;border:1px solid #f4e8c9;padding:12px 14px;border-radius:11px;font-size:12px;margin-bottom:15px}
+    .modal-backdrop{position:fixed;inset:0;background:#11251f8c;display:grid;place-items:center;padding:18px;z-index:10}
+    .modal{width:min(560px,100%);background:white;border-radius:17px;padding:22px;box-shadow:0 25px 80px #0003;max-height:92vh;overflow:auto}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    .modal-head h3{margin:0;font-size:17px}.close{border:0;background:#f2f4f2;border-radius:9px;width:32px;height:32px;color:#65716c;font-size:18px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .field{display:grid;gap:5px}.field.full{grid-column:1/-1}
+    .field label{font-size:11px;color:var(--muted)}
+    .field input,.field select,.field textarea{width:100%;border:1px solid #dfe5e0;border-radius:9px;padding:9px 10px;outline:none;background:white;color:var(--ink);font-size:12px}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:#5ba786;box-shadow:0 0 0 3px #dff1e7}
+    .field textarea{resize:vertical;min-height:65px}
+    .form-actions{display:flex;justify-content:flex-start;gap:8px;margin-top:17px}
+    .toast{position:fixed;bottom:22px;left:22px;background:#173c30;color:#fff;border-radius:11px;padding:11px 16px;box-shadow:var(--shadow);z-index:20;font-size:12px;animation:fade .2s}
+    @keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+    .report-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:15px}
+    .report-card{padding:16px;border:1px solid var(--line);border-radius:12px}
+    .report-card span{color:var(--muted);font-size:11px}.report-card strong{display:block;font:700 20px "DM Sans",sans-serif;margin-top:8px;direction:ltr;text-align:right}
+    .mobile-brand{display:none}
+    @media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}}
+    @media(max-width:720px){.app{display:block}aside{padding:12px 14px 8px;gap:11px}.brand{padding:2px 4px}.brand-mark{width:38px;height:38px}.brand h1{font-size:16px}.nav-label,.aside-bottom{display:none}nav{display:flex;overflow-x:auto;gap:5px;padding-bottom:3px}.nav-btn{white-space:nowrap;width:auto;padding:8px 10px;font-size:12px;gap:7px}.nav-icon{font-size:14px;width:auto}main{padding:18px 14px 35px}.topbar{margin-bottom:17px}.topbar h2{font-size:19px}.date-pill{display:none}.greeting{padding:17px 18px}.greeting h3{font-size:16px}.greeting .primary{padding:8px 10px;font-size:11px}.stats{gap:9px}.stat{padding:13px;min-height:104px}.stat strong{font-size:19px}.stat-top{font-size:11px}.stat-icon{width:28px;height:28px}.two-col{grid-template-columns:1fr}.page-tools{align-items:flex-start}.filter{max-width:140px}.report-cards{grid-template-columns:1fr}.panel{padding:15px}.quick{padding:10px}.quick small{display:none}}
+    @media(max-width:390px){.stats{grid-template-columns:1fr 1fr}.top-actions .primary{padding:8px 10px;font-size:11px}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">
+        <div class="brand-mark">پ</div>
+        <div><h1>پمپ حساب</h1><p>پٹرول پمپ مینجمنٹ</p></div>
+      </div>
+      <div>
+        <div class="nav-label">مین مینو</div>
+        <nav id="navigation">
+          <button class="nav-btn active" data-page="dashboard"><span class="nav-icon">⌂</span>ڈیش بورڈ</button>
+          <button class="nav-btn" data-page="sales"><span class="nav-icon">↗</span>سیلز</button>
+          <button class="nav-btn" data-page="expenses"><span class="nav-icon">↘</span>اخراجات</button>
+          <button class="nav-btn" data-page="purchases"><span class="nav-icon">▤</span>فیول خریداری</button>
+          <button class="nav-btn" data-page="credit"><span class="nav-icon">◷</span>ادھار کھاتہ</button>
+          <button class="nav-btn" data-page="stock"><span class="nav-icon">▥</span>اسٹاک</button>
+          <button class="nav-btn" data-page="reports"><span class="nav-icon">▧</span>رپورٹس</button>
+        </nav>
+      </div>
+      <div class="aside-bottom">پمپ مالک<strong>مبشر حسین</strong>آپ کا حساب، ہر دن واضح</div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div><div class="eyebrow" id="todayText"></div><h2 id="pageTitle">ڈیش بورڈ</h2></div>
+        <div class="top-actions"><span class="date-pill" id="datePill"></span><button class="primary" id="headerAdd">+ نیا اندراج</button></div>
+      </header>
+      <section id="pageContent"></section>
+    </main>
+  </div>
+  <div id="modalRoot"></div>
+  <script>
+    (() => {
+      "use strict";
+      const STORAGE_KEY = "pump-hisaab-v1";
+      const pageNames = {dashboard:"ڈیش بورڈ",sales:"سیلز",expenses:"اخراجات",purchases:"فیول خریداری",credit:"ادھار کھاتہ",stock:"اسٹاک",reports:"رپورٹس"};
+      const emptyData = {sales:[],expenses:[],purchases:[],credits:[],opening:{Petrol:0,Diesel:0,HiOctane:0}};
+      let data = loadData();
+      let currentPage = "dashboard";
+
+      function loadData() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+          return saved && typeof saved === "object" ? {...emptyData,...saved,opening:{...emptyData.opening,...saved.opening}} : structuredClone(emptyData);
+        } catch (error) {
+          console.error("Could not read saved pump accounts:", error);
+          return structuredClone(emptyData);
+        }
+      }
+      function saveData() {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+        catch (error) { console.error("Could not save pump accounts:", error); toast("ریکارڈ محفوظ نہیں ہو سکا"); }
+      }
+      const today = () => { const date=new Date();return [date.getFullYear(),String(date.getMonth()+1).padStart(2,"0"),String(date.getDate()).padStart(2,"0")].join("-"); };
+      const money = value => "Rs " + Number(value || 0).toLocaleString("en-PK",{maximumFractionDigits:0});
+      const number = value => Number(value || 0).toLocaleString("en-PK",{maximumFractionDigits:2});
+      const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+      const uid = () => `${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
+      const dateLabel = date => date ? new Date(date+"T00:00:00").toLocaleDateString("ur-PK",{day:"numeric",month:"short",year:"numeric"}) : "—";
+      function persist() { saveData(); render(); }
+      function toast(message) {
+        const old = document.querySelector(".toast"); if(old) old.remove();
+        const el=document.createElement("div");el.className="toast";el.textContent=message;document.body.appendChild(el);setTimeout(()=>el.remove(),2600);
+      }
+      function sum(items,key="total") { return items.reduce((total,item)=>total+Number(item[key]||0),0); }
+      function todayItems(items) { return items.filter(item=>item.date===today()); }
+      function stockFor(fuel) {
+        return Number(data.opening[fuel]||0) + sum(data.purchases.filter(x=>x.fuel===fuel),"liters") - sum(data.sales.filter(x=>x.fuel===fuel),"liters");
+      }
+      function creditBalances() {
+        const balances={};
+        data.sales.filter(x=>x.payment==="ادھار").forEach(x=>balances[x.customer]=(balances[x.customer]||0)+Number(x.total));
+        data.credits.forEach(x=>balances[x.customer]=(balances[x.customer]||0)+(x.kind==="وصولی"?-Number(x.amount):Number(x.amount)));
+        return Object.entries(balances).filter(([,amount])=>amount!==0).sort((a,b)=>b[1]-a[1]);
+      }
+      function cashBalance() {
+        return sum(data.sales.filter(x=>x.payment==="نقد")) + sum(data.credits.filter(x=>x.kind==="وصولی"),"amount") - sum(data.expenses.filter(x=>x.payment==="نقد"),"amount") - sum(data.purchases,"total");
+      }
+      function render() {
+        document.querySelectorAll(".nav-btn").forEach(btn=>btn.classList.toggle("active",btn.dataset.page===currentPage));
+        document.getElementById("pageTitle").textContent=pageNames[currentPage];
+        document.getElementById("todayText").textContent=new Date().toLocaleDateString("ur-PK",{weekday:"long",day:"numeric",month:"long"});
+        document.getElementById("datePill").textContent=new Date().toLocaleDateString("ur-PK",{day:"numeric",month:"short",year:"numeric"});
+        document.getElementById("headerAdd").style.display=currentPage==="dashboard"||currentPage==="reports"?"none":"";
+        document.getElementById("pageContent").innerHTML=views[currentPage]();
+        bindPageActions();
+      }
+      const views = {
+        dashboard() {
+          const sales=todayItems(data.sales), expenses=todayItems(data.expenses), purchases=todayItems(data.purchases);
+          const salesTotal=sum(sales), expenseTotal=sum(expenses,"amount"), net=salesTotal-expenseTotal;
+          const recent=[...data.sales.map(x=>({...x,kind:"سیل",sortDate:x.date})),...data.expenses.map(x=>({...x,kind:"خرچ",sortDate:x.date})),...data.purchases.map(x=>({...x,kind:"خرید",sortDate:x.date}))].sort((a,b)=>b.sortDate.localeCompare(a.sortDate)).slice(0,6);
+          const fuels=[["Petrol","پیٹرول"],["Diesel","ڈیزل"],["HiOctane","ہائی اوکٹین"]];
+          return `<div class="greeting"><div><h3>السلام علیکم، مبشر حسین صاحب</h3><p>آج کے کاروبار کا خلاصہ اور تازہ حساب ایک نظر میں۔</p></div><button class="primary" data-action="add-sale">+ سیل درج کریں</button></div>
+          <div class="stats">
+            ${stat("آج کی سیل",money(salesTotal),"↗","تمام درج شدہ سیلز")}
+            ${stat("آج کے اخراجات",money(expenseTotal),"↘",`${expenses.length} اندراج`)}
+            ${stat("سیل − اخراجات",money(net),"◈","آج کی سیل میں سے روزمرہ خرچ")}
+            ${stat("کیش بیلنس",money(cashBalance()),"₨","نقد آمدن − نقد خرچ")}
+          </div>
+          <div class="content-grid">
+            <section class="panel"><div class="panel-head"><h3>فوری اندراج</h3></div><div class="quick-grid">
+              ${quick("＋","نئی سیل","لیٹر اور رقم درج کریں","add-sale")}
+              ${quick("−","خرچہ شامل کریں","روزمرہ اخراجات","add-expense")}
+              ${quick("▤","فیول خریدیں","ٹینک اسٹاک بڑھائیں","add-purchase")}
+              ${quick("◷","ادھار وصولی","کسٹمر سے رقم وصول کریں","add-credit-payment")}
+            </div></section>
+            <section class="panel"><div class="panel-head"><h3>فیول کا موجودہ اسٹاک</h3><button class="text-btn" data-goto="stock">تفصیل دیکھیں</button></div><div class="fuel-list">${fuels.map(([key,label])=>{const qty=stockFor(key),max=Math.max(qty,10000);return `<div class="fuel-row"><div class="fuel-title"><span>${label}</span><span>${number(qty)} لیٹر</span></div><div class="progress"><span style="width:${Math.min(100,Math.max(0,qty/max*100))}%"></span></div></div>`}).join("")}</div></section>
+            <section class="panel" style="grid-column:1/-1"><div class="panel-head"><h3>حالیہ اندراجات</h3><button class="text-btn" data-goto="sales">تمام ریکارڈ</button></div>${recent.length?`<div class="table-wrap"><table><thead><tr><th>قسم</th><th>تفصیل</th><th>تاریخ</th><th>رقم</th></tr></thead><tbody>${recent.map(x=>`<tr><td><span class="badge">${x.kind}</span></td><td>${escapeHtml(x.fuel?fuelUrdu(x.fuel):x.category||x.customer||"—")}</td><td>${dateLabel(x.date)}</td><td class="amount">${money(x.total||x.amount)}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">ابھی کوئی اندراج نہیں۔ اوپر سے پہلی سیل یا خرچ درج کریں۔</div>`}</section>
+          </div>`;
+        },
+        sales() { return listPage("سیلز کا ریکارڈ","add-sale",salesTable()); },
+        expenses() { return listPage("اخراجات کا ریکارڈ","add-expense",expensesTable()); },
+        purchases() { return listPage("فیول خریداری کا ریکارڈ","add-purchase",purchasesTable()); },
+        credit() {
+          const balances=creditBalances();
+          return `<div class="notice">ادھار سیل اور وصولیاں خودکار طور پر کسٹمر کے کھاتے میں شامل ہوتی ہیں۔ بیلنس صفر ہونے پر کھاتہ فہرست سے ہٹ جائے گا۔</div>
+          <div class="page-tools"><h3>کسٹمر کھاتے</h3><div><button class="secondary" data-action="add-credit">+ نیا ادھار</button> <button class="primary" data-action="add-credit-payment">رقم وصول کریں</button></div></div>
+          <div class="panel ledger-panel"><div class="table-wrap">${balances.length?`<table><thead><tr><th>کسٹمر</th><th>بقایا رقم</th><th>حالت</th></tr></thead><tbody>${balances.map(([name,amount])=>`<tr><td>${escapeHtml(name)}</td><td class="amount">${money(amount)}</td><td><span class="badge credit">${amount>0?"وصول طلب":"اضافی وصولی"}</span></td></tr>`).join("")}</tbody></table>`:`<div class="empty">کوئی بقایا ادھار موجود نہیں۔</div>`}</div></div>
+          <div class="page-tools" style="margin-top:22px"><h3>ادھار اور وصولی کی تفصیل</h3></div><div class="panel ledger-panel">${creditsTable()}</div>`;
+        },
+        stock() {
+          const fuels=[["Petrol","پیٹرول"],["Diesel","ڈیزل"],["HiOctane","ہائی اوکٹین"]];
+          return `<div class="notice">اسٹاک = ابتدائی اسٹاک + خریداری − سیل۔ پمپ شروع کرتے وقت ہر فیول کا ابتدائی اسٹاک درج کر دیں۔</div>
+          <div class="page-tools"><h3>فیول اسٹاک</h3><button class="primary" data-action="set-opening">ابتدائی اسٹاک درج کریں</button></div>
+          <div class="two-col">${fuels.map(([key,label])=>`<div class="panel"><div class="panel-head"><h3>${label}</h3><span class="badge">موجودہ اسٹاک</span></div><div style="font:700 28px 'DM Sans';direction:ltr;text-align:right">${number(stockFor(key))}<small style="font:400 12px 'Noto Nastaliq Urdu';color:var(--muted)"> لیٹر</small></div><div style="color:var(--muted);font-size:11px;margin-top:10px">ابتدائی: ${number(data.opening[key])} L　 خریداری: ${number(sum(data.purchases.filter(x=>x.fuel===key),"liters"))} L　 سیل: ${number(sum(data.sales.filter(x=>x.fuel===key),"liters"))} L</div></div>`).join("")}</div>
+          <div class="page-tools" style="margin-top:22px"><h3>حالیہ خریداری</h3><button class="secondary" data-action="add-purchase">+ خریداری درج کریں</button></div><div class="panel ledger-panel">${purchasesTable()}</div>`;
+        },
+        reports() {
+          const month=today().slice(0,7);
+          const ms=data.sales.filter(x=>x.date.startsWith(month)), me=data.expenses.filter(x=>x.date.startsWith(month)), mp=data.purchases.filter(x=>x.date.startsWith(month));
+          const totalSales=sum(ms),totalExpenses=sum(me,"amount");
+          return `<div class="page-tools"><h3>ماہانہ خلاصہ</h3><input class="filter" type="month" id="reportMonth" value="${month}"></div>
+          <div class="report-cards" id="reportCards">${reportCards(totalSales,totalExpenses,ms,mp)}</div>
+          <div class="two-col"><section class="panel"><div class="panel-head"><h3>فیول کے حساب سے سیل</h3></div>${fuelSalesTable(ms)}</section><section class="panel"><div class="panel-head"><h3>اخراجات کی تقسیم</h3></div>${expenseCategories(me)}</section></div>
+          <div class="page-tools" style="margin-top:22px"><h3>ڈیٹا بیک اپ</h3><div><button class="secondary" data-action="export">بیک اپ ڈاؤن لوڈ</button> <label class="secondary" style="display:inline-block;cursor:pointer">بیک اپ بحال<input type="file" id="importFile" accept="application/json" hidden></label></div></div>`;
+        }
+      };
+      function stat(label,value,icon,sub){return `<div class="card stat"><div class="stat-top"><span>${label}</span><span class="stat-icon">${icon}</span></div><strong>${value}</strong><small>${sub}</small></div>`}
+      function quick(icon,title,sub,action){return `<button class="quick" data-action="${action}"><span class="qicon">${icon}</span><span><b>${title}</b><small>${sub}</small></span></button>`}
+      function listPage(title,action,table){return `<div class="page-tools"><h3>${title}</h3><div><input class="filter" type="date" id="dateFilter"> <button class="primary" data-action="${action}">+ نیا اندراج</button></div></div><div class="panel ledger-panel">${table}</div>`}
+      function fuelUrdu(fuel){return ({Petrol:"پیٹرول",Diesel:"ڈیزل",HiOctane:"ہائی اوکٹین"})[fuel]||fuel}
+      function salesTable(filterDate) {
+        const rows=[...data.sales].filter(x=>!filterDate||x.date===filterDate).sort((a,b)=>b.date.localeCompare(a.date));
+        return rows.length?`<div class="table-wrap"><table><thead><tr><th>تاریخ</th><th>فیول</th><th>لیٹر</th><th>ریٹ / لیٹر</th><th>ادائیگی</th><th>کسٹمر</th><th>کل رقم</th><th></th></tr></thead><tbody>${rows.map(x=>`<tr><td>${dateLabel(x.date)}</td><td>${fuelUrdu(x.fuel)}</td><td>${number(x.liters)}</td><td class="amount">${money(x.rate)}</td><td><span class="badge ${x.payment==="نقد"?"cash":"credit"}">${x.payment}</span></td><td>${escapeHtml(x.customer||"—")}</td><td class="amount">${money(x.total)}</td><td><button class="danger" data-delete="sales" data-id="${x.id}">حذف</button></td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">اس تاریخ کا کوئی سیل ریکارڈ نہیں۔</div>`;
+      }
+      function expensesTable(filterDate) {
+        const rows=[...data.expenses].filter(x=>!filterDate||x.date===filterDate).sort((a,b)=>b.date.localeCompare(a.date));
+        return rows.length?`<div class="table-wrap"><table><thead><tr><th>تاریخ</th><th>مد</th><th>تفصیل</th><th>ادائیگی</th><th>رقم</th><th></th></tr></thead><tbody>${rows.map(x=>`<tr><td>${dateLabel(x.date)}</td><td>${escapeHtml(x.category)}</td><td>${escapeHtml(x.notes||"—")}</td><td>${escapeHtml(x.payment||"نقد")}</td><td class="amount">${money(x.amount)}</td><td><button class="danger" data-delete="expenses" data-id="${x.id}">حذف</button></td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">ابھی اخراجات درج نہیں کیے گئے۔</div>`;
+      }
+      function purchasesTable() {
+        const rows=[...data.purchases].sort((a,b)=>b.date.localeCompare(a.date));
+        return rows.length?`<div class="table-wrap"><table><thead><tr><th>تاریخ</th><th>فیول</th><th>لیٹر</th><th>ریٹ / لیٹر</th><th>سپلائر</th><th>کل رقم</th><th></th></tr></thead><tbody>${rows.map(x=>`<tr><td>${dateLabel(x.date)}</td><td>${fuelUrdu(x.fuel)}</td><td>${number(x.liters)}</td><td class="amount">${money(x.rate)}</td><td>${escapeHtml(x.supplier||"—")}</td><td class="amount">${money(x.total)}</td><td><button class="danger" data-delete="purchases" data-id="${x.id}">حذف</button></td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">ابھی خریداری درج نہیں کی گئی۔</div>`;
+      }
+      function creditsTable() {
+        const rows=[...data.credits.map(x=>({...x,description:x.kind})),...data.sales.filter(x=>x.payment==="ادھار").map(x=>({...x,kind:"ادھار سیل",amount:x.total,description:fuelUrdu(x.fuel)}))].sort((a,b)=>b.date.localeCompare(a.date));
+        return rows.length?`<div class="table-wrap"><table><thead><tr><th>تاریخ</th><th>کسٹمر</th><th>تفصیل</th><th>رقم</th><th></th></tr></thead><tbody>${rows.map(x=>`<tr><td>${dateLabel(x.date)}</td><td>${escapeHtml(x.customer)}</td><td><span class="badge ${x.kind==="وصولی"?"cash":"credit"}">${escapeHtml(x.description)}</span></td><td class="amount">${money(x.amount||x.total)}</td><td>${x.id&&data.credits.some(c=>c.id===x.id)?`<button class="danger" data-delete="credits" data-id="${x.id}">حذف</button>`:"—"}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">ادھار کا کوئی اندراج نہیں۔</div>`;
+      }
+      function reportCards(sales,expenses,salesRows,purchases){return `<div class="report-card"><span>کل سیل</span><strong>${money(sales)}</strong></div><div class="report-card"><span>کل اخراجات</span><strong>${money(expenses)}</strong></div><div class="report-card"><span>سیل − اخراجات</span><strong>${money(sales-expenses)}</strong></div><div class="report-card"><span>سیل والیوم</span><strong>${number(sum(salesRows,"liters"))} L</strong></div><div class="report-card"><span>فیول خریداری</span><strong>${money(sum(purchases))}</strong></div><div class="report-card"><span>سیل اندراجات</span><strong>${salesRows.length}</strong></div>`}
+      function fuelSalesTable(rows){const fuels=[["Petrol","پیٹرول"],["Diesel","ڈیزل"],["HiOctane","ہائی اوکٹین"]];return `<table><thead><tr><th>فیول</th><th>لیٹر</th><th>سیل</th></tr></thead><tbody>${fuels.map(([key,label])=>{const subset=rows.filter(x=>x.fuel===key);return `<tr><td>${label}</td><td>${number(sum(subset,"liters"))}</td><td class="amount">${money(sum(subset))}</td></tr>`}).join("")}</tbody></table>`}
+      function expenseCategories(rows){const cats={};rows.forEach(x=>cats[x.category]=(cats[x.category]||0)+Number(x.amount));const entries=Object.entries(cats);return entries.length?`<table><thead><tr><th>مد</th><th>کل رقم</th></tr></thead><tbody>${entries.map(([cat,val])=>`<tr><td>${escapeHtml(cat)}</td><td class="amount">${money(val)}</td></tr>`).join("")}</tbody></table>`:`<div class="empty">اس مہینے کوئی خرچ نہیں۔</div>`}
+      const fuelOptions=`<option value="Petrol">پیٹرول</option><option value="Diesel">ڈیزل</option><option value="HiOctane">ہائی اوکٹین</option>`;
+      function field(label,name,type="text",options="",required=true,full=false,placeholder=""){return `<div class="field ${full?"full":""}"><label for="${name}">${label}${required?" *":""}</label>${type==="select"?`<select name="${name}" id="${name}" ${required?"required":""}>${options}</select>`:type==="textarea"?`<textarea name="${name}" id="${name}" placeholder="${placeholder}"></textarea>`:`<input type="${type}" name="${name}" id="${name}" ${placeholder?`placeholder="${placeholder}"`:""} ${required?"required":""} ${type==="number"?'step="any" min="0"':""}>`}</div>`}
+      function showModal(title,fields,onSave) {
+        const root=document.getElementById("modalRoot");
+        root.innerHTML=`<div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true"><div class="modal-head"><h3>${title}</h3><button class="close" type="button" aria-label="بند کریں">×</button></div><form><div class="form-grid">${fields}</div><div class="form-actions"><button class="primary" type="submit">محفوظ کریں</button><button class="secondary cancel" type="button">منسوخ</button></div></form></div></div>`;
+        const close=()=>root.innerHTML="";
+        root.querySelector(".close").onclick=close;root.querySelector(".cancel").onclick=close;
+        root.querySelector(".modal-backdrop").addEventListener("click",e=>{if(e.target===e.currentTarget)close()});
+        root.querySelector("form").addEventListener("submit",e=>{e.preventDefault();const values=Object.fromEntries(new FormData(e.currentTarget).entries());if(onSave(values)!==false)close();});
+      }
+      function addSale() {
+        showModal("نئی سیل درج کریں",field("تاریخ","date","date")+field("فیول","fuel","select",fuelOptions)+field("لیٹر","liters","number")+field("فی لیٹر ریٹ (روپے)","rate","number")+field("ادائیگی کی قسم","payment","select",'<option>نقد</option><option>ادھار</option>')+field("کسٹمر کا نام (ادھار کے لیے)","customer","text","",false)+field("نوٹ","notes","textarea","",false,true),
+          v=>{const liters=Number(v.liters),rate=Number(v.rate);if(v.payment==="ادھار"&&!v.customer.trim()){toast("ادھار سیل کے لیے کسٹمر کا نام ضروری ہے");return false}data.sales.push({id:uid(),date:v.date,fuel:v.fuel,liters,rate,total:liters*rate,payment:v.payment,customer:v.customer.trim(),notes:v.notes});persist();toast("سیل کامیابی سے درج ہو گئی")});
+        setDefaults({date:today()});
+      }
+      function addExpense() {
+        const categories=["تنخواہ","بجلی","مرمت","کرایہ","چائے / کھانا","ٹرانسپورٹ","دیگر"];
+        showModal("نیا خرچ درج کریں",field("تاریخ","date","date")+field("خرچ کی مد","category","select",categories.map(x=>`<option>${x}</option>`).join(""))+field("رقم (روپے)","amount","number")+field("ادائیگی","payment","select",'<option>نقد</option><option>بینک</option>')+field("تفصیل","notes","textarea","",false,true),
+          v=>{data.expenses.push({id:uid(),date:v.date,category:v.category,amount:Number(v.amount),payment:v.payment,notes:v.notes});persist();toast("خرچ درج ہو گیا")});
+        setDefaults({date:today()});
+      }
+      function addPurchase() {
+        showModal("فیول خریداری درج کریں",field("تاریخ","date","date")+field("فیول","fuel","select",fuelOptions)+field("لیٹر","liters","number")+field("فی لیٹر قیمت (روپے)","rate","number")+field("سپلائر","supplier","text","",false)+field("انوائس / نوٹ","notes","textarea","",false,true),
+          v=>{const liters=Number(v.liters),rate=Number(v.rate);data.purchases.push({id:uid(),date:v.date,fuel:v.fuel,liters,rate,total:liters*rate,supplier:v.supplier,notes:v.notes});persist();toast("خریداری اور اسٹاک اپ ڈیٹ ہو گیا")});
+        setDefaults({date:today()});
+      }
+      function addCredit(kind) {
+        const payment=kind==="وصولی";
+        showModal(payment?"کسٹمر سے رقم وصول کریں":"نیا ادھار درج کریں",field("تاریخ","date","date")+field("کسٹمر کا نام","customer")+field("رقم (روپے)","amount","number")+field("تفصیل","notes","textarea","",false,true),
+          v=>{data.credits.push({id:uid(),date:v.date,customer:v.customer.trim(),amount:Number(v.amount),kind,notes:v.notes});persist();toast(payment?"وصولی درج ہو گئی":"ادھار درج ہو گیا")});
+        setDefaults({date:today()});
+      }
+      function setOpening() {
+        showModal("ابتدائی فیول اسٹاک",field("پیٹرول (لیٹر)","Petrol","number")+field("ڈیزل (لیٹر)","Diesel","number")+field("ہائی اوکٹین (لیٹر)","HiOctane","number"),
+          v=>{data.opening={Petrol:Number(v.Petrol),Diesel:Number(v.Diesel),HiOctane:Number(v.HiOctane)};persist();toast("ابتدائی اسٹاک محفوظ ہو گیا")});
+        setDefaults(data.opening);
+      }
+      function setDefaults(values){Object.entries(values).forEach(([name,value])=>{const input=document.querySelector(`#modalRoot [name="${name}"]`);if(input)input.value=value})}
+      function exportData() {
+        const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+        a.href=url;a.download=`pump-hisaab-backup-${today()}.json`;a.click();URL.revokeObjectURL(url);toast("بیک اپ ڈاؤن لوڈ ہو گیا");
+      }
+      function bindPageActions() {
+        const dateFilter=document.getElementById("dateFilter");
+        if(dateFilter)dateFilter.addEventListener("change",()=>{const table=currentPage==="sales"?salesTable(dateFilter.value):expensesTable(dateFilter.value);document.querySelector(".ledger-panel").innerHTML=table});
+        document.querySelectorAll("[data-goto]").forEach(el=>el.addEventListener("click",()=>navigate(el.dataset.goto)));
+        document.querySelectorAll("[data-action]").forEach(el=>el.addEventListener("click",()=>runAction(el.dataset.action)));
+        document.querySelectorAll("[data-delete]").forEach(el=>el.addEventListener("click",()=>{if(confirm("کیا آپ یہ ریکارڈ حذف کرنا چاہتے ہیں؟")){data[el.dataset.delete]=data[el.dataset.delete].filter(x=>x.id!==el.dataset.id);persist();toast("ریکارڈ حذف ہو گیا")}}));
+        const month=document.getElementById("reportMonth");
+        if(month)month.addEventListener("change",()=>{const m=month.value;const sales=data.sales.filter(x=>x.date.startsWith(m)),expenses=data.expenses.filter(x=>x.date.startsWith(m)),purchases=data.purchases.filter(x=>x.date.startsWith(m));document.getElementById("reportCards").innerHTML=reportCards(sum(sales),sum(expenses,"amount"),sales,purchases);document.querySelector(".two-col").innerHTML=`<section class="panel"><div class="panel-head"><h3>فیول کے حساب سے سیل</h3></div>${fuelSalesTable(sales)}</section><section class="panel"><div class="panel-head"><h3>اخراجات کی تقسیم</h3></div>${expenseCategories(expenses)}</section>`});
+        const importInput=document.getElementById("importFile");
+        if(importInput)importInput.addEventListener("change",async()=>{const file=importInput.files[0];if(!file)return;try{const parsed=JSON.parse(await file.text());if(!parsed||!Array.isArray(parsed.sales)||!Array.isArray(parsed.expenses)||!Array.isArray(parsed.purchases)||!Array.isArray(parsed.credits))throw new Error("Invalid backup format");data={...emptyData,...parsed,opening:{...emptyData.opening,...parsed.opening}};persist();toast("بیک اپ بحال ہو گیا")}catch(error){console.error("Backup import failed:",error);toast("یہ بیک اپ فائل درست نہیں ہے")}});
+      }
+      function runAction(action) {
+        if(action==="add-sale")addSale();
+        else if(action==="add-expense")addExpense();
+        else if(action==="add-purchase")addPurchase();
+        else if(action==="add-credit")addCredit("ادھار");
+        else if(action==="add-credit-payment")addCredit("وصولی");
+        else if(action==="set-opening")setOpening();
+        else if(action==="export")exportData();
+      }
+      function navigate(page){if(!pageNames[page])return;currentPage=page;render()}
+      document.getElementById("navigation").addEventListener("click",e=>{const btn=e.target.closest("[data-page]");if(btn)navigate(btn.dataset.page)});
+      document.getElementById("headerAdd").addEventListener("click",()=>runAction(({sales:"add-sale",expenses:"add-expense",purchases:"add-purchase",credit:"add-credit",stock:"set-opening"})[currentPage]||"add-sale"));
+      render();
+    })();
+  </script>
+</body>
+</html>
